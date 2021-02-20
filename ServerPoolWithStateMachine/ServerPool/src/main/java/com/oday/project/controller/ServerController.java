@@ -25,6 +25,7 @@ import com.oday.project.model.Server;
 import com.oday.project.model.ServerStatus;
 import com.oday.project.repository.IncorrectVersion;
 import com.oday.project.repository.ServerRepository;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @ComponentScan(basePackageClasses = AerospikeConfiguration.class)
@@ -50,19 +51,26 @@ public class ServerController {
 
 	@RequestMapping(value = "/getMyServer/{id}",headers = "Accept=application/json")
 	public Server getMyServer(@PathVariable(value  = "id") long id) {
-		
-		return serverRepository.findById(id).get();
+		Server ser=serverRepository.findById(id).get();
+		if(ser.getStatus()==ServerStatus.Active) {
+			return ser;
+		}else return null;
+	}
+
+	@RequestMapping(value = "/getString/{str}",headers = "Accept=application/json")
+	public String getString(@PathVariable(value = "str")String str){
+		return "{message:"+str+"}";
 
 	}
 
 	@RequestMapping(value = "/allocate/{capacity}/{nameOfUser}",headers = "Accept=application/json")
-	public String allocate(@PathVariable(value = "capacity") int capacity,
-			@PathVariable(value = "nameOfUser") String nameOfUser) {
+	public RedirectView allocate(@PathVariable(value = "capacity") int capacity,
+								 @PathVariable(value = "nameOfUser") String nameOfUser) {
 		if (capacity > 100)
-			return "Your capacity grater than 100";
+			return new RedirectView("/getString/Your capacity grater than 100");
 		
 		String string= allocateServer( capacity,nameOfUser);
-		return string;
+		return new RedirectView(string);
 		
 		
 	}
@@ -71,9 +79,7 @@ public class ServerController {
 		serverRepository.findAll().forEach(servers::add);
 
 		Server s = getBestServer(servers, capacity);
-		StateMachine test=stateMachineFactory.getStateMachine(String.valueOf(s.getId()));
-		s.setStatus(ServerStatus.Createing);
-		 System.out.println("the server with id= " +s.getId()+" now is in = "+s.getStatus());
+
 
 		s.getMyUser().add(nameOfUser);
 
@@ -96,7 +102,6 @@ public class ServerController {
 		}
 
 
-		test.start();
 
 
 
@@ -108,13 +113,14 @@ public class ServerController {
 
 
 
-					
 
 
-					
 
 
-		return "you will take the server after 12 sec , your server id ="+s.getId();
+
+
+
+		return "/getMyServer/"+s.getId();
 		
 	}
 
@@ -157,8 +163,12 @@ public class ServerController {
 			long newid = (System.currentTimeMillis() << 20) | (System.nanoTime() & 0xFFFFFL);
 			List<String> l = new ArrayList<String>();
 			l.add("");
-			Server nnsServer = new Server(newid, 0, ServerStatus.Active, 0, l, 1);
+			Server nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
 			serverRepository.save(nnsServer);
+			StateMachine test=stateMachineFactory.getStateMachine(String.valueOf(nnsServer.getId()));
+
+			System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
+			test.start();
 			return nnsServer;
 		}
 

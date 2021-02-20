@@ -62,7 +62,7 @@ public class ServerController {
 			return new RedirectView("/getString/Your capacity grater than 100");
 		
 		String string= allocateServer( capacity,nameOfUser);
-		return new RedirectView(string);
+			return new RedirectView(string);
 		
 		
 	}

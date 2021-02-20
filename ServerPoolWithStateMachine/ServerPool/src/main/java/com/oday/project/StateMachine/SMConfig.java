@@ -46,7 +46,7 @@ final ServerRepository serverRepository;
 
 
                 .action(myAction())
-                .timerOnce(15000);
+                .timerOnce(20000);
 
 
 
