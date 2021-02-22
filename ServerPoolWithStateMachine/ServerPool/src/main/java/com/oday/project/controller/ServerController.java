@@ -124,7 +124,7 @@ if(capacity>0){
 
 	serverRepository.save(nnsServer);
 	allocateTheServerGraterThan100(capacity,nameOfUser);
-
+	stateMachineFactory.getStateMachine(String.valueOf(nnsServer.getId())).start();
 
 
 
