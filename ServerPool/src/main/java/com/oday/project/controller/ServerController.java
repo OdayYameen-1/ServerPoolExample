@@ -36,7 +36,7 @@ public class ServerController {
 	
 	@RequestMapping(value = "/getServer",headers = "Accept=application/json")
 	public Iterable<Server> getServer() {
-		
+
 		return serverRepository.findAll();
 
 	}
@@ -54,12 +54,89 @@ public class ServerController {
 		return "{message:"+str+"}";
 
 	}
+	@RequestMapping(value = "/allocateG/{capacity}/{nameOfUser}",headers = "Accept=application/json")
+	public RedirectView allocateG(@PathVariable(value = "capacity") int capacity,
+								 @PathVariable(value = "nameOfUser") String nameOfUser) {
+		allocateTheServerGraterThan100(capacity,nameOfUser);
+
+		return new RedirectView("/getServer");
+
+	}
+
+	private void allocateTheServerGraterThan100(int capacity, String nameOfUser) {
+		List <Server> servers=new ArrayList<>();
+		serverRepository.findAll().forEach(servers::add);
+
+		for (Server server:servers){
+			if(server.getCapacity()<100){
+				int prevcap=server.getCapacity();
+				if(server.getCapacity()+capacity<=100){
+					server.setCapacity(server.getCapacity()+capacity);
+					capacity=0;
+				}else {
+					int x = 100 - server.getCapacity();
+					server.setCapacity(server.getCapacity() + x);
+					capacity = capacity - x;
+				}
+				server.getMyUser().add(nameOfUser);
+				try {
+					serverRepository.update(server);
+				} catch (IncorrectVersion incorrectVersion) {
+					allocateTheServerGraterThan100(capacity,nameOfUser);
+				}
+if(prevcap==0){
+	Thread thread=new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			server.setStatus(ServerStatus.Active);
+			System.out.println("the server with id= " +server.getId()+" now is in = "+server.getStatus());
+			serverRepository.save(server);
+
+		}
+	});
+
+	thread.start();
+
+
+}///prev Capacity==0
+
+			}
+
+
+		}
+if(capacity>0){
+
+
+	long newid = (System.currentTimeMillis() << 20) | (System.nanoTime() & 0xFFFFFL);
+	List<String> l = new ArrayList<String>();
+	l.add("");
+	Server nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
+	System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
+
+	serverRepository.save(nnsServer);
+	allocateTheServerGraterThan100(capacity,nameOfUser);
+
+
+
+
+}
+else return;
+
+	}
 
 	@RequestMapping(value = "/allocate/{capacity}/{nameOfUser}",headers = "Accept=application/json")
 	public RedirectView allocate(@PathVariable(value = "capacity") int capacity,
 			@PathVariable(value = "nameOfUser") String nameOfUser) {
 		if (capacity > 100)
-			return new RedirectView("/getString/Your capacity grater than 100");
+			return new RedirectView("go to : allocateG/{capacity}/{nameOfUser}");
 		
 		String string= allocateServer( capacity,nameOfUser);
 			return new RedirectView(string);
