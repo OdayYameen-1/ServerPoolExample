@@ -2,7 +2,7 @@ package com.oday.project.repository;
 
 
 
-import java.util.Optional;
+
 
 import org.springframework.data.aerospike.repository.AerospikeRepository;
 
@@ -25,9 +25,9 @@ public interface ServerRepository extends AerospikeRepository<Server, Long>{
 			save(s);
 		}
 		
-	};
-	
-	
+	}
+
+
 }
 
 

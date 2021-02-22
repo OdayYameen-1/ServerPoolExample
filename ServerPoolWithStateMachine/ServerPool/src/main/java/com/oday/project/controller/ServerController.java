@@ -1,31 +1,24 @@
 package com.oday.project.controller;
 
 
-
-import java.util.ArrayList;
-import java.util.Comparator;
-
-import java.util.List;
-import java.util.Optional;
-
-import com.oday.project.StateMachine.ServerEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.statemachine.StateMachine;
-import org.springframework.statemachine.action.Action;
-import org.springframework.statemachine.config.StateMachineFactory;
-import org.springframework.statemachine.state.State;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.oday.project.configuration.AerospikeConfiguration;
 import com.oday.project.model.Server;
 import com.oday.project.model.ServerStatus;
 import com.oday.project.repository.IncorrectVersion;
 import com.oday.project.repository.ServerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.statemachine.StateMachine;
+import org.springframework.statemachine.config.StateMachineFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @ComponentScan(basePackageClasses = AerospikeConfiguration.class)
@@ -62,7 +55,83 @@ public class ServerController {
 		return "{message:"+str+"}";
 
 	}
+	@RequestMapping(value = "/allocateG/{capacity}/{nameOfUser}",headers = "Accept=application/json")
+	public RedirectView allocateG(@PathVariable(value = "capacity") int capacity,
+								 @PathVariable(value = "nameOfUser") String nameOfUser) {
+		allocateTheServerGraterThan100(capacity,nameOfUser);
 
+		return new RedirectView("/getServer");
+
+	}
+
+	private void allocateTheServerGraterThan100(int capacity, String nameOfUser) {
+		List <Server> servers=new ArrayList<>();
+		serverRepository.findAll().forEach(servers::add);
+
+		for (Server server:servers){
+			if(server.getCapacity()<100){
+				int prevcap=server.getCapacity();
+				if(server.getCapacity()+capacity<=100){
+					server.setCapacity(server.getCapacity()+capacity);
+					capacity=0;
+				}else {
+					int x = 100 - server.getCapacity();
+					server.setCapacity(server.getCapacity() + x);
+					capacity = capacity - x;
+				}
+				server.getMyUser().add(nameOfUser);
+				try {
+					serverRepository.update(server);
+				} catch (IncorrectVersion incorrectVersion) {
+					allocateTheServerGraterThan100(capacity,nameOfUser);
+				}
+if(prevcap==0){
+	Thread thread=new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			server.setStatus(ServerStatus.Active);
+			System.out.println("the server with id= " +server.getId()+" now is in = "+server.getStatus());
+			serverRepository.save(server);
+
+		}
+	});
+
+	thread.start();
+
+
+}///prev Capacity==0
+
+			}
+
+
+		}
+if(capacity>0){
+
+
+	long newid = (System.currentTimeMillis() << 20) | (System.nanoTime() & 0xFFFFFL);
+	List<String> l = new ArrayList<String>();
+	l.add("");
+	Server nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
+	System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
+
+	serverRepository.save(nnsServer);
+	allocateTheServerGraterThan100(capacity,nameOfUser);
+
+
+
+
+}
+else return;
+
+	}
 	@RequestMapping(value = "/allocate/{capacity}/{nameOfUser}",headers = "Accept=application/json")
 	public RedirectView allocate(@PathVariable(value = "capacity") int capacity,
 								 @PathVariable(value = "nameOfUser") String nameOfUser) {

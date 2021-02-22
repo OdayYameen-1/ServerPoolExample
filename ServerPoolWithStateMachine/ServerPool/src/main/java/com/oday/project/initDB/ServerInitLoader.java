@@ -1,18 +1,17 @@
 package com.oday.project.initDB;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import com.oday.project.configuration.AerospikeConfiguration;
+import com.oday.project.model.Server;
+import com.oday.project.model.ServerStatus;
+import com.oday.project.repository.ServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
-import com.oday.project.configuration.AerospikeConfiguration;
-import com.oday.project.model.Server;
-import com.oday.project.model.ServerStatus;
-import com.oday.project.repository.ServerRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 @ComponentScan(basePackageClasses = AerospikeConfiguration.class)
