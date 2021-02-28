@@ -31,16 +31,29 @@ import com.oday.project.repository.ServerRepository;
 public class ServerController {
 	@Autowired
 	private ServerRepository serverRepository;
-	
+	int sum=0;
 	private Thread t;
-	
+	private static final Object obj=new Object();
+
 	@RequestMapping(value = "/getServer",headers = "Accept=application/json")
 	public Iterable<Server> getServer() {
 
 		return serverRepository.findAll();
 
 	}
-
+	@RequestMapping(value = "/size")
+	public int size() {
+		sum=0;
+		serverRepository.findAll().forEach(s->{
+			sum+=s.getCapacity();
+			
+			
+			
+			
+		});
+		return sum;
+		
+	}
 	@RequestMapping(value = "/getMyServer/{id}",headers = "Accept=application/json")
 	public Server getMyServer(@PathVariable(value  = "id") long id) {
 		Server ser=serverRepository.findById(id).get();
@@ -63,26 +76,42 @@ public class ServerController {
 
 	}
 
-	private void allocateTheServerGraterThan100(int capacity, String nameOfUser) {
+	private synchronized void allocateTheServerGraterThan100(int capacity, String nameOfUser) {
+		System.out.println(capacity+"          pppp");
+		
 		List <Server> servers=new ArrayList<>();
 		serverRepository.findAll().forEach(servers::add);
-
+			int prevUserCap=capacity;
 		for (Server server:servers){
 			if(server.getCapacity()<100){
 				int prevcap=server.getCapacity();
 				if(server.getCapacity()+capacity<=100){
-					server.setCapacity(server.getCapacity()+capacity);
-					capacity=0;
+					
+					
+						server.setCapacity(server.getCapacity()+capacity);
+						capacity=0;	
+				
+					
+					System.err.println("SERVER <<100 ID "+server.getId()+"   Cap == > "+server.getCapacity());
+
 				}else {
-					int x = 100 - server.getCapacity();
-					server.setCapacity(server.getCapacity() + x);
-					capacity = capacity - x;
+					
+					
+						int x = 100 - server.getCapacity();
+						server.setCapacity(server.getCapacity() + x);
+						
+						capacity = capacity - x;	
+					
+					
+					System.err.println("SERVER >>100 ID "+server.getId()+"   Cap == > "+server.getCapacity());
+
 				}
 				server.getMyUser().add(nameOfUser);
 				try {
+					System.err.println("SERVER SAVE ID "+server.getId()+"   Cap == > "+server.getCapacity());
 					serverRepository.update(server);
 				} catch (IncorrectVersion incorrectVersion) {
-					allocateTheServerGraterThan100(capacity,nameOfUser);
+					allocateTheServerGraterThan100(prevUserCap,nameOfUser);
 				}
 if(prevcap==0){
 	Thread thread=new Thread(new Runnable() {
@@ -119,16 +148,18 @@ if(capacity>0){
 	List<String> l = new ArrayList<String>();
 	l.add("");
 	Server nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
-	System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
+	System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus()+"  Cap == "+nnsServer.getCapacity());
+	
+		serverRepository.save(nnsServer);
 
-	serverRepository.save(nnsServer);
+	
 	allocateTheServerGraterThan100(capacity,nameOfUser);
 
 
 
 
 }
-else return;
+
 
 	}
 
