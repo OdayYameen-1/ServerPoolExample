@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.9.2 on win32)" generated="20210301 10:29:01.574" rpa="false">
+<suite id="s1" name="Suites">
+<suite id="s1-s1" name="TestSute3" source="C:\Users\OdayY\eclipse-workspace\RobotServerPool\MyTests\TestSute3.robot">
+<test id="s1-s1-t1" name="AllocateServerLessThan100">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>${HOST}</arg>
+</arguments>
+<msg timestamp="20210301 10:29:01.919" level="INFO">Creating Session using : alias=allocate, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210301 10:29:01.918" endtime="20210301 10:29:01.920"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<arg>charset=utf-8</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210301 10:29:01.921" level="INFO">${headers} = {'Accept': '*/*', 'Content-Type': 'application/json', 'charset': 'utf-8'}</msg>
+<status status="PASS" starttime="20210301 10:29:01.920" endtime="20210301 10:29:01.921"></status>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>allocate/30/oday</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20210301 10:29:14.825" level="INFO">GET Request : url=http://localhost:8080/allocate/30/oday (redirected) 
+ path_url=/allocate/30/oday 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'charset': 'utf-8'} 
+ body=None 
+ </msg>
+<msg timestamp="20210301 10:29:14.825" level="INFO">GET Response : url=http://localhost:8080/getServer 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 01 Mar 2021 08:29:14 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=[{"id":1693017400184486820,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017467186726204,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017502373833860,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017471605790000,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017374986612832,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017371487378352,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017488301826388,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017503682612292,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017387387398080,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017465220182668,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017391268082776,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017469081428564,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017494710580296,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017470349302844,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017403293551832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017411812208484,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017460166269320,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017398898190288,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017406553165576,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017504977333024,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017501098290428,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017487058227332,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017417015636188,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":5,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017397634082832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017497266833584,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017414470326976,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017396215018644,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017407855947960,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017493428802640,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017492146847108,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017405299078096,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017380872980192,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017479511199700,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":4,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017415772081208,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017445896551040,"capacity":100,"status":"Active","myUser":["","oday","oday","oday","oday"],"version":6,"noUser":4,"stringUserName":"(   ,  oday ,  oday ,  oday ,  oday ,  )"},{"id":1693017485772021176,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017540515907020,"capacity":90,"status":"Createing","myUser":["","oday","oday","oday"],"version":4,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017484360462064,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017413164039068,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017382154628848,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017364316997436,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":5,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017394420001640,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017495994190452,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017383495290408,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017378927700256,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017456215427320,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017475587311476,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"}] 
+ </msg>
+<msg timestamp="20210301 10:29:14.827" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210301 10:29:01.921" endtime="20210301 10:29:14.827"></status>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>allocate/100/oday</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<msg timestamp="20210301 10:29:41.891" level="INFO">GET Request : url=http://localhost:8080/allocate/100/oday (redirected) 
+ path_url=/allocate/100/oday 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'charset': 'utf-8'} 
+ body=None 
+ </msg>
+<msg timestamp="20210301 10:29:41.892" level="INFO">GET Response : url=http://localhost:8080/getServer 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 01 Mar 2021 08:29:41 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=[{"id":1693017400184486820,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017467186726204,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017502373833860,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017471605790000,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017374986612832,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017555962537952,"capacity":100,"status":"Createing","myUser":["","oday","oday"],"version":3,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017561669032004,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017371487378352,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017563076363816,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017488301826388,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017503682612292,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017387387398080,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017465220182668,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017391268082776,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017469081428564,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017494710580296,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017470349302844,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017403293551832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017411812208484,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017564494535728,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017460166269320,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017398898190288,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017406553165576,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017565905691692,"capacity":100,"status":"Createing","myUser":["","oday","oday"],"version":3,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017501098290428,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017504977333024,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017487058227332,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017417015636188,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":5,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017577565819832,"capacity":0,"status":"Createing","myUser":[""],"version":1,"noUser":0,"stringUserName":"(   ,  )"},{"id":1693017397634082832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017414470326976,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017396215018644,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017497266833584,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017407855947960,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017493428802640,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017492146847108,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017405299078096,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017380872980192,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017569222916988,"capacity":100,"status":"Createing","myUser":["","oday","oday"],"version":3,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017560132901936,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017550350637704,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017479511199700,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":4,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017415772081208,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017445896551040,"capacity":100,"status":"Active","myUser":["","oday","oday","oday","oday"],"version":6,"noUser":4,"stringUserName":"(   ,  oday ,  oday ,  oday ,  oday ,  )"},{"id":1693017485772021176,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017540515907020,"capacity":100,"status":"Active","myUser":["","oday","oday","oday","oday"],"version":6,"noUser":4,"stringUserName":"(   ,  oday ,  oday ,  oday ,  oday ,  )"},{"id":1693017484360462064,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017382154628848,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017413164039068,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017364316997436,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":5,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017394420001640,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017495994190452,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017383495290408,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017378927700256,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017573711388312,"capacity":100,"status":"Createing","myUser":["","oday","oday"],"version":3,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017475587311476,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017456215427320,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"}] 
+ </msg>
+<status status="PASS" starttime="20210301 10:29:14.827" endtime="20210301 10:29:41.892"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<msg timestamp="20210301 10:29:41.893" level="INFO">200</msg>
+<status status="PASS" starttime="20210301 10:29:41.893" endtime="20210301 10:29:41.893"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<status status="PASS" starttime="20210301 10:29:41.894" endtime="20210301 10:29:41.896"></status>
+</kw>
+<status status="PASS" starttime="20210301 10:29:01.917" endtime="20210301 10:29:41.896" critical="yes"></status>
+</test>
+<test id="s1-s1-t2" name="AllocateServerGraterThan100">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>${HOST}</arg>
+</arguments>
+<msg timestamp="20210301 10:29:41.898" level="INFO">Creating Session using : alias=allocate, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210301 10:29:41.897" endtime="20210301 10:29:41.898"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<arg>charset=utf-8</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210301 10:29:41.900" level="INFO">${headers} = {'Accept': '*/*', 'Content-Type': 'application/json', 'charset': 'utf-8'}</msg>
+<status status="PASS" starttime="20210301 10:29:41.899" endtime="20210301 10:29:41.901"></status>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>allocate/450/oday</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20210301 10:30:05.115" level="INFO">GET Request : url=http://localhost:8080/allocate/450/oday (redirected) 
+ path_url=/allocate/450/oday 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'charset': 'utf-8'} 
+ body=None 
+ </msg>
+<msg timestamp="20210301 10:30:05.116" level="INFO">GET Response : url=http://localhost:8080/getServer 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 01 Mar 2021 08:30:05 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=[{"id":1693017400184486820,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017467186726204,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017589117881168,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017502373833860,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017471605790000,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017374986612832,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017555962537952,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017591802606660,"capacity":100,"status":"Createing","myUser":["","oday","oday"],"version":3,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017590451246176,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017561669032004,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017371487378352,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017563076363816,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017488301826388,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017503682612292,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017585698034816,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017579577418820,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017597058289268,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017387387398080,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017465220182668,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017391268082776,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017469081428564,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017582322711992,"capacity":100,"status":"Createing","myUser":["","oday","oday"],"version":3,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017494710580296,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017470349302844,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017403293551832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017411812208484,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017564494535728,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017460166269320,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017398898190288,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017406553165576,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017565905691692,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017501098290428,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017504977333024,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017487058227332,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017417015636188,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":5,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017577565819832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017397634082832,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017497266833584,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017414470326976,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017396215018644,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017581009850108,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017587691461504,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017407855947960,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017599860999916,"capacity":90,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017493428802640,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017492146847108,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017405299078096,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017380872980192,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017569222916988,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017560132901936,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017550350637704,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017479511199700,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":4,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017415772081208,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017445896551040,"capacity":100,"status":"Active","myUser":["","oday","oday","oday","oday"],"version":6,"noUser":4,"stringUserName":"(   ,  oday ,  oday ,  oday ,  oday ,  )"},{"id":1693017598410799652,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017485772021176,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017540515907020,"capacity":100,"status":"Active","myUser":["","oday","oday","oday","oday"],"version":6,"noUser":4,"stringUserName":"(   ,  oday ,  oday ,  oday ,  oday ,  )"},{"id":1693017484360462064,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017413164039068,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017382154628848,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017364316997436,"capacity":100,"status":"Active","myUser":["","oday","oday","oday"],"version":5,"noUser":3,"stringUserName":"(   ,  oday ,  oday ,  oday ,  )"},{"id":1693017394420001640,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017495994190452,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017383495290408,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017595023205228,"capacity":100,"status":"Createing","myUser":["","oday"],"version":2,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017378927700256,"capacity":100,"status":"Active","myUser":["","oday"],"version":3,"noUser":1,"stringUserName":"(   ,  oday ,  )"},{"id":1693017573711388312,"capacity":100,"status":"Active","myUser":["","oday","oday"],"version":4,"noUser":2,"stringUserName":"(   ,  oday ,  oday ,  )"},{"id":1693017475587311476,"capacity":100,"status... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg timestamp="20210301 10:30:05.117" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210301 10:29:41.901" endtime="20210301 10:30:05.117"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<msg timestamp="20210301 10:30:05.118" level="INFO">200</msg>
+<status status="PASS" starttime="20210301 10:30:05.117" endtime="20210301 10:30:05.119"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<status status="PASS" starttime="20210301 10:30:05.119" endtime="20210301 10:30:05.121"></status>
+</kw>
+<status status="PASS" starttime="20210301 10:29:41.897" endtime="20210301 10:30:05.122" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210301 10:29:01.649" endtime="20210301 10:30:05.123"></status>
+</suite>
+<status status="PASS" starttime="20210301 10:29:01.579" endtime="20210301 10:30:05.126"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0">Critical Tests</stat>
+<stat pass="2" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" id="s1" name="Suites">Suites</stat>
+<stat pass="2" fail="0" id="s1-s1" name="TestSute3">Suites.TestSute3</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

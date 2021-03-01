@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.9.2 on win32)" generated="20210301 10:31:56.348" rpa="false">
+<suite id="s1" name="RobotServerPool" source="C:\Users\OdayY\eclipse-workspace\RobotServerPool">
+<suite id="s1-s1" name="getServer" source="C:\Users\OdayY\eclipse-workspace\RobotServerPool\getServer">
+<suite id="s1-s1-s1" name="getServerPoolSize" source="C:\Users\OdayY\eclipse-workspace\RobotServerPool\getServer\getServerPoolSize.robot">
+<test id="s1-s1-s1-t1" name="SizeOfServerPool">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>${HOST}</arg>
+</arguments>
+<msg timestamp="20210301 10:31:56.969" level="INFO">Creating Session using : alias=allocate, url=http://localhost:8080, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210301 10:31:56.968" endtime="20210301 10:31:56.970"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Accept=*/*</arg>
+<arg>Content-Type=application/json</arg>
+<arg>charset=utf-8</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210301 10:31:56.971" level="INFO">${headers} = {'Accept': '*/*', 'Content-Type': 'application/json', 'charset': 'utf-8'}</msg>
+<status status="PASS" starttime="20210301 10:31:56.970" endtime="20210301 10:31:56.972"></status>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>allocate</arg>
+<arg>size</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20210301 10:31:58.332" level="INFO">GET Request : url=http://localhost:8080/size 
+ path_url=/size 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'charset': 'utf-8'} 
+ body=None 
+ </msg>
+<msg timestamp="20210301 10:31:58.333" level="INFO">GET Response : url=http://localhost:8080/size 
+ status=200, reason= 
+ headers={'Content-Type': 'application/json', 'Transfer-Encoding': 'chunked', 'Date': 'Mon, 01 Mar 2021 08:31:58 GMT', 'Keep-Alive': 'timeout=60', 'Connection': 'keep-alive'} 
+ body=6990 
+ </msg>
+<msg timestamp="20210301 10:31:58.334" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210301 10:31:56.972" endtime="20210301 10:31:58.334"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<msg timestamp="20210301 10:31:58.335" level="INFO">200</msg>
+<status status="PASS" starttime="20210301 10:31:58.334" endtime="20210301 10:31:58.335"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<status status="PASS" starttime="20210301 10:31:58.335" endtime="20210301 10:31:58.335"></status>
+</kw>
+<status status="PASS" starttime="20210301 10:31:56.966" endtime="20210301 10:31:58.336" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210301 10:31:56.766" endtime="20210301 10:31:58.337"></status>
+</suite>
+<status status="PASS" starttime="20210301 10:31:56.759" endtime="20210301 10:31:58.340"></status>
+</suite>
+<status status="PASS" starttime="20210301 10:31:56.717" endtime="20210301 10:31:58.343"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="RobotServerPool">RobotServerPool</stat>
+<stat pass="1" fail="0" id="s1-s1" name="getServer">RobotServerPool.getServer</stat>
+<stat pass="1" fail="0" id="s1-s1-s1" name="getServerPoolSize">RobotServerPool.getServer.getServerPoolSize</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
