@@ -5,6 +5,7 @@ import com.oday.project.configuration.AerospikeConfiguration;
 
 import com.oday.project.model.Server;
 import com.oday.project.model.ServerStatus;
+import com.oday.project.repository.IncorrectVersion;
 import com.oday.project.repository.ServerRepository;
 
 import org.springframework.context.annotation.Bean;
@@ -61,7 +62,13 @@ final ServerRepository serverRepository;
              Server value=serverRepository.findById(id).get();
             value.setStatus(ServerStatus.Active);
             System.out.println("the server with id= " +value.getId()+" now is in = "+value.getStatus());
-            serverRepository.save(value);
+            try {
+				serverRepository.update(value);
+			} catch (IncorrectVersion e) {
+				// TODO Auto-generated catch block
+				System.err.println("errrrrrrrrrrererrererererooooorrrr");
+				myAction();
+			}
         };
     }
 
