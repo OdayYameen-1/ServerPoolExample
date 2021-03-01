@@ -67,8 +67,8 @@ public class ServerController {
 		return "{message:"+str+"}";
 
 	}
-	@RequestMapping(value = "/allocateG/{capacity}/{nameOfUser}",headers = "Accept=application/json")
-	public RedirectView allocateG(@PathVariable(value = "capacity") int capacity,
+	@RequestMapping(value = "/allocate/{capacity}/{nameOfUser}",headers = "Accept=application/json")
+	public RedirectView allocate(@PathVariable(value = "capacity") int capacity,
 								 @PathVariable(value = "nameOfUser") String nameOfUser) {
 		allocateTheServerGraterThan100(capacity,nameOfUser);
 
@@ -81,203 +81,204 @@ public class ServerController {
 		
 		List <Server> servers=new ArrayList<>();
 		serverRepository.findAll().forEach(servers::add);
-			int prevUserCap=capacity;
+			
 		for (Server server:servers){
 			if(server.getCapacity()<100){
-				int prevcap=server.getCapacity();
+				
 				if(server.getCapacity()+capacity<=100){
 					
 					
 						server.setCapacity(server.getCapacity()+capacity);
 						capacity=0;	
-				
+						
 					
-					System.err.println("SERVER <<100 ID "+server.getId()+"   Cap == > "+server.getCapacity());
 
 				}else {
+					int x = 100 - server.getCapacity();
 					
-					
-						int x = 100 - server.getCapacity();
-						server.setCapacity(server.getCapacity() + x);
+						
+						server.setCapacity(100);
 						
 						capacity = capacity - x;	
+				
+						
 					
 					
-					System.err.println("SERVER >>100 ID "+server.getId()+"   Cap == > "+server.getCapacity());
+					
 
 				}
 				server.getMyUser().add(nameOfUser);
+				server.setNoUser(server.getNoUser()+1);
 				try {
-					System.err.println("SERVER SAVE ID "+server.getId()+"   Cap == > "+server.getCapacity());
 					serverRepository.update(server);
+					
 				} catch (IncorrectVersion incorrectVersion) {
-					allocateTheServerGraterThan100(prevUserCap,nameOfUser);
+					System.err.println("eeeeeeeeeerrrrrrrrrroooooooooooorrrrrrrrrrrr");
+				
+					allocateTheServerGraterThan100(capacity,nameOfUser);
 				}
-if(prevcap==0){
-	Thread thread=new Thread(new Runnable() {
 
-		@Override
-		public void run() {
-			try {
-				Thread.sleep(20000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			server.setStatus(ServerStatus.Active);
-			System.out.println("the server with id= " +server.getId()+" now is in = "+server.getStatus());
-			serverRepository.save(server);
-
-		}
-	});
-
-	thread.start();
+if(capacity==0)
+	return;
 
 
-}///prev Capacity==0
 
 			}
 
 
 		}
-if(capacity>0){
 
+		if(capacity>0){
 
-	long newid = (System.currentTimeMillis() << 20) | (System.nanoTime() & 0xFFFFFL);
-	List<String> l = new ArrayList<String>();
-	l.add("");
-	Server nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
-	System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus()+"  Cap == "+nnsServer.getCapacity());
-	
-		serverRepository.save(nnsServer);
-
-	
-	allocateTheServerGraterThan100(capacity,nameOfUser);
-
-
-
-
-}
-
-
-	}
-
-	@RequestMapping(value = "/allocate/{capacity}/{nameOfUser}",headers = "Accept=application/json")
-	public RedirectView allocate(@PathVariable(value = "capacity") int capacity,
-			@PathVariable(value = "nameOfUser") String nameOfUser) {
-		if (capacity > 100)
-			return new RedirectView("go to : allocateG/{capacity}/{nameOfUser}");
-		
-		String string= allocateServer( capacity,nameOfUser);
-			return new RedirectView(string);
-		
-		
-	}
-
-	String allocateServer(int capacity, String nameOfUser) {
-		List<Server> servers = new ArrayList<Server>();
-		serverRepository.findAll().forEach(servers::add);
-
-		Server s = getBestServer(servers, capacity);
-
-
-
-		s.getMyUser().add(nameOfUser);
-
-		if (s.getNoUser() == 0) {
-			s.setNoUser(s.getNoUser() + 1);
-			s.setCapacity(capacity);
-
-		} else {
-			s.setCapacity(s.getCapacity() + capacity);
-			s.setNoUser(s.getNoUser() + 1);
-		}
-		
-		
-		try {
-			serverRepository.update(s);
-		} catch (IncorrectVersion e) {
-			System.err.println("eeeeeeeeerrrrrrrrrrrrrroooooooooooorrrrrrr");
-			return allocateServer(capacity, nameOfUser);
-			
-		}
-	
-			return "/getMyServer/"+s.getId();
-
-		
-	}
-
-
-///////////////////////*///////////////////////////////*///////////////////////
-	private Server getBestServer(List<Server> servers, int capacity) {
-
-		for (Server server : servers) {
-			if (server.getNoUser() == 0)
-				return server;
-		}
-		List<Server> tofindMin = new ArrayList<Server>();
-		for (Server server : servers) {
-
-			if (server.getCapacity() + capacity <= 100) {
-				tofindMin.add(server);
-
-			}
-
-		}
-		Optional<Server> theminServerCapacity = tofindMin.stream().min(new Comparator<Server>() {
-
-			@Override
-			public int compare(Server o1, Server o2) {
-				if (o1.getCapacity() > o2.getCapacity())
-
-					return 1;
-
-				else if (o1.getCapacity() < o2.getCapacity())
-					return -1;
-
-				else
-
-					return 0;
-			}
-
-		});////// end of find min server capacity
-
-		if (!theminServerCapacity.isPresent()) {
 
 			long newid = (System.currentTimeMillis() << 20) | (System.nanoTime() & 0xFFFFFL);
 			List<String> l = new ArrayList<String>();
 			l.add("");
 			Server nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
 			System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
+			
+				serverRepository.save(nnsServer);
 
-			serverRepository.save(nnsServer);
-			Thread thread=new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						Thread.sleep(20000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					nnsServer.setStatus(ServerStatus.Active);
-					System.out.println("the server with id= " +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
-					serverRepository.save(nnsServer);
-
-				}
-			});
-
-			thread.start();
+				activateServer(nnsServer);
+				
+				allocateTheServerGraterThan100(capacity,nameOfUser);
+			
+				
 
 
-			return nnsServer;
 		}
 
-		return theminServerCapacity.get();
+
 
 	}
 
+	public  void activateServer(Server s) {
+		Server server=serverRepository.findById(s.getId()).get();
+		Thread thread=new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(20000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				server.setStatus(ServerStatus.Active);
+				
+				try {
+					serverRepository.update(server);
+					System.out.println("the server with id= " +server.getId()+" now is in = "+server.getStatus());
+				} catch (IncorrectVersion e) {
+					
+					System.err.println("cfrwqegwergh4564654egva4654vb64sa6b44465464");
+					activateServer(server);
+				}
+				
+
+			}
+		});
+
+		thread.start();
+
+		
+		
+		
+		
+	}
 }
+/*
+ * @RequestMapping(value = "/allocate/{capacity}/{nameOfUser}",headers =
+ * "Accept=application/json") public RedirectView allocate(@PathVariable(value =
+ * "capacity") int capacity,
+ * 
+ * @PathVariable(value = "nameOfUser") String nameOfUser) { if (capacity > 100)
+ * return new RedirectView("go to : allocateG/{capacity}/{nameOfUser}");
+ * 
+ * allocateTheServerGraterThan100( capacity,nameOfUser); return new
+ * RedirectView(string);
+ * 
+ * 
+ * }
+ */
+
+/*
+ * String allocateServer(int capacity, String nameOfUser) { List<Server> servers
+ * = new ArrayList<Server>(); serverRepository.findAll().forEach(servers::add);
+ * 
+ * Server s = getBestServer(servers, capacity);
+ * 
+ * 
+ * 
+ * s.getMyUser().add(nameOfUser);
+ * 
+ * if (s.getNoUser() == 0) { s.setNoUser(s.getNoUser() + 1);
+ * s.setCapacity(capacity);
+ * 
+ * } else { s.setCapacity(s.getCapacity() + capacity); s.setNoUser(s.getNoUser()
+ * + 1); }
+ * 
+ * 
+ * try { serverRepository.update(s); } catch (IncorrectVersion e) {
+ * System.err.println("eeeeeeeeerrrrrrrrrrrrrroooooooooooorrrrrrr"); return
+ * allocateServer(capacity, nameOfUser);
+ * 
+ * }
+ * 
+ * return "/getMyServer/"+s.getId();
+ * 
+ * 
+ * }
+ */
+
+///////////////////////*///////////////////////////////*///////////////////////
+
+/*
+ * private Server getBestServer(List<Server> servers, int capacity) {
+ * 
+ * for (Server server : servers) { if (server.getNoUser() == 0) return server; }
+ * List<Server> tofindMin = new ArrayList<Server>(); for (Server server :
+ * servers) {
+ * 
+ * if (server.getCapacity() + capacity <= 100) { tofindMin.add(server);
+ * 
+ * }
+ * 
+ * } Optional<Server> theminServerCapacity = tofindMin.stream().min(new
+ * Comparator<Server>() {
+ * 
+ * @Override public int compare(Server o1, Server o2) { if (o1.getCapacity() >
+ * o2.getCapacity())
+ * 
+ * return 1;
+ * 
+ * else if (o1.getCapacity() < o2.getCapacity()) return -1;
+ * 
+ * else
+ * 
+ * return 0; }
+ * 
+ * });////// end of find min server capacity
+ * 
+ * if (!theminServerCapacity.isPresent()) {
+ * 
+ * long newid = (System.currentTimeMillis() << 20) | (System.nanoTime() &
+ * 0xFFFFFL); List<String> l = new ArrayList<String>(); l.add(""); Server
+ * nnsServer = new Server(newid, 0, ServerStatus.Createing, 0, l, 1);
+ * System.out.println("the server with id= "
+ * +nnsServer.getId()+" now is in = "+nnsServer.getStatus());
+ * 
+ * serverRepository.save(nnsServer);
+ * 
+ * 
+ * activateServer(nnsServer);
+ * 
+ * return nnsServer; }
+ * 
+ * return theminServerCapacity.get();
+ * 
+ * }
+ * 
+ * }
+ */
